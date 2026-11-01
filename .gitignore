@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+
+# Claude Code local state
+.claude/
+
+# Stray/empty lockfile (this project has no npm dependencies)
+package-lock.json
+
+# OS
+.DS_Store
+Thumbs.db

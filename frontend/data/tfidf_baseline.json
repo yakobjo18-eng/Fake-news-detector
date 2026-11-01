@@ -1,0 +1,9 @@
+{
+  "model": "TF-IDF + Logistic Regression",
+  "validation_accuracy": 0.9563,
+  "precision": null,
+  "recall": null,
+  "f1": null,
+  "confusion_matrix": null,
+  "verification_status": "User-reported figure from the project brief only. No saved metrics file for this baseline was found in this project (only the serialized model, fake_news_final_package/results/tfidf_baseline.joblib, exists). Precision/recall/F1/confusion matrix are not available and are intentionally left null rather than invented."
+}

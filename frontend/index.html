@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VERITY — Explainable AI News Intelligence</title>
+  <meta name="description" content="DeBERTa v3 fake-news classifier with SHAP explainability." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <div class="topbar">
+    <button id="mobileNavToggle" aria-label="Open navigation">☰</button>
+    <button id="brandHomeMobile" class="brand-name" type="button" style="background:none;border:none;color:inherit;font:inherit;cursor:pointer;padding:0;">VERITY</button>
+    <span style="width:36px;"></span>
+  </div>
+
+  <div class="shell">
+    <nav class="sidebar" aria-label="Primary">
+      <button id="brandHome" class="brand" type="button" aria-label="Go to home">
+        <div class="brand-mark">V</div>
+        <div class="brand-text">
+          <div class="brand-name">VERITY</div>
+          <div class="brand-tag">AI News Intelligence</div>
+        </div>
+      </button>
+
+      <div class="nav-group-label">Workspace</div>
+      <div class="nav-list" id="navList" role="navigation"></div>
+
+      <div class="sidebar-footer">
+        <button id="compactToggle" class="compact-toggle" type="button" aria-label="Toggle compact sidebar">
+          <span class="chevron-icon">«</span><span class="compact-toggle-label">Collapse sidebar</span>
+        </button>
+      </div>
+    </nav>
+
+    <main class="content" id="content" tabindex="-1"></main>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

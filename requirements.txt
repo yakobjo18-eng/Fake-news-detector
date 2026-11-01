@@ -1,0 +1,16 @@
+# Verified working versions in this environment (CPU inference, Python 3.13, Windows).
+# torch install line is CPU/CUDA build-specific; if `pip install torch` pulls a different
+# build on your machine, that's fine as long as `import torch` succeeds.
+torch>=2.2
+transformers>=4.49
+safetensors>=0.4
+sentencepiece>=0.2
+shap>=0.45
+fastapi>=0.110
+uvicorn[standard]>=0.29
+pydantic>=2.6
+numpy>=1.26
+
+# Testing
+pytest>=8.0
+httpx>=0.27

@@ -1,0 +1,82 @@
+:root {
+  /* Base scale is still monochrome. The one deliberate exception: Fake is
+     flagged red and Real is flagged green wherever that signal appears
+     (pills, probability bars, SHAP bars, token highlighting) — an explicit
+     user instruction overriding the earlier all-monochrome direction. Icon
+     shape + fill weight are kept alongside color, not replaced by it, so the
+     signal still doesn't depend on hue perception alone. */
+  --real: #42c99a;
+  --real-soft: rgba(66, 201, 154, 0.16);
+  --real-ink: #06261c;
+  --fake: #f0717c;
+  --fake-soft: rgba(240, 113, 124, 0.16);
+  --fake-ink: #2a0a0d;
+
+  --bg: #000000;
+  --ink: #ffffff;
+  --ink-dim: #9a9a9f;
+  --ink-faint: #6b6b70;
+  --line: rgba(255, 255, 255, 0.12);
+  --line-strong: rgba(255, 255, 255, 0.28);
+
+  /* Glass surfaces: translucent + blurred, used only where a surface genuinely
+     layers over other content (sidebar, sticky topbar, banners, modals) — flat
+     cards stay flat so dense tabular data stays scannable (see DESIGN_CONTRACT). */
+  --glass-fill: rgba(255, 255, 255, 0.045);
+  --glass-fill-elevated: rgba(255, 255, 255, 0.075);
+  --glass-fill-strong: rgba(20, 20, 20, 0.62);
+  --glass-blur: blur(20px) saturate(150%);
+  --glass-blur-sm: blur(10px) saturate(130%);
+
+  --card-bg: #0a0a0a;
+  --elevated-bg: #121212;
+
+  /* Single interactive accent: pure white. Reserved for primary actions and the
+     active-nav state — not decoration. */
+  --accent: #ffffff;
+  --accent-soft: rgba(255, 255, 255, 0.1);
+
+  --text-primary: var(--ink);
+  --text-secondary: var(--ink-dim);
+  --border: var(--line);
+
+  /* Legacy semantic names kept so existing call sites don't need renaming, but
+     all three now resolve to the same monochrome ink — fill vs. outline/hatch
+     treatment (see components.js, charts.js) carries the actual meaning. */
+  --positive: var(--ink);
+  --positive-soft: rgba(255, 255, 255, 0.07);
+  --negative: var(--ink);
+  --negative-soft: rgba(255, 255, 255, 0.14);
+  --warning: var(--ink);
+  --warning-soft: rgba(255, 255, 255, 0.07);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  --font-sans: "Inter", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+
+  --sidebar-width: 248px;
+  --sidebar-width-compact: 76px;
+
+  --transition-fast: 120ms ease;
+  --transition-base: 180ms ease;
+
+  --touch-min: 44px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-base: 0ms;
+  }
+}

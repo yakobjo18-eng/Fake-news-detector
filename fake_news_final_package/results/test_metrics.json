@@ -1,0 +1,45 @@
+{
+  "model": "microsoft/deberta-v3-base",
+  "test_accuracy": 0.9981155778894473,
+  "test_macro_precision": 0.99812859098434,
+  "test_macro_recall": 0.9980699108362283,
+  "test_macro_f1": 0.9980991498710479,
+  "test_samples": 6368,
+  "confusion_matrix": [
+    [
+      3474,
+      5
+    ],
+    [
+      7,
+      2882
+    ]
+  ],
+  "classification_report": {
+    "0": {
+      "precision": 0.9979890835966676,
+      "recall": 0.9985628054038517,
+      "f1-score": 0.9982758620689656,
+      "support": 3479.0
+    },
+    "1": {
+      "precision": 0.9982680983720125,
+      "recall": 0.9975770162686051,
+      "f1-score": 0.9979224376731302,
+      "support": 2889.0
+    },
+    "accuracy": 0.9981155778894473,
+    "macro avg": {
+      "precision": 0.99812859098434,
+      "recall": 0.9980699108362283,
+      "f1-score": 0.9980991498710479,
+      "support": 6368.0
+    },
+    "weighted avg": {
+      "precision": 0.998115665519716,
+      "recall": 0.9981155778894473,
+      "f1-score": 0.9981155223893852,
+      "support": 6368.0
+    }
+  }
+}

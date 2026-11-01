@@ -1,0 +1,52 @@
+{
+  "contract": "See frontend/DESIGN_CONTRACT.md. Purpose: single-model fake-news explainability instrument (submit article -> classification + SHAP explanation). Audience: local user/demo presenter, not multi-tenant SaaS. Primary action: Analyze Article (now the default/landing route). Monochrome shell by explicit user instruction, with one deliberate exception per a follow-up instruction: Fake is flagged red, Real is flagged green, applied only to that signal (pills, probability bars, SHAP bars, token highlighting, confusion matrix) and nowhere else (nav/buttons/model-comparison chart stay monochrome); icon shape (alert vs. check) is kept alongside color, not replaced by it. Glass (backdrop-filter blur) applied only to true overlay surfaces: sidebar, mobile topbar, banners -- flat solid cards elsewhere for data scannability.",
+  "targetViewports": ["1440x900", "390x844"],
+  "accessibility": {
+    "status": "pass",
+    "evidence": "Verified via rendered inspection + DOM queries (not source reading alone): skip-link to #content present and focusable; :focus-visible ring visible on inputs/buttons/nav items/switch; all buttons, nav items, and the compact-sidebar toggle are >=44px (--touch-min token); SVG charts (SHAP bar chart, confusion matrix, metric comparison) carry role=img + aria-label with the literal value rather than relying on hover-only title attributes; prefers-reduced-motion:reduce zeroes transitions and freezes the spinner. Not independently tested: a real screen-reader (NVDA/VoiceOver) pass -- noted as a gap in DESIGN_CONTRACT.md section 7."
+  },
+  "responsive": {
+    "status": "pass",
+    "evidence": "Checked document.documentElement.scrollWidth <= clientWidth at 390x844 (false/no overflow, confirmed via Playwright page.evaluate). Mobile nav opens as an off-canvas glass drawer over blurred real content (see screenshots/390x844__empty.png) and closes on navigation. Sidebar collapses to icon-only compact mode at both viewports without layout shift. Long labels (bar-chart token names) truncate with text-overflow:ellipsis rather than overflowing. Verified a prediction result, SHAP bar chart, and confusion matrix all render without horizontal scroll at the mobile viewport."
+  },
+  "contentStates": {
+    "loading": {
+      "status": "pass",
+      "evidence": "Predict request intercepted and delayed via Playwright route mocking; captured mid-flight showing a spinner + 'Running model...' text with the form fields and submit button stably disabled, no layout shift. screenshots/1440x900__loading.png and 390x844__loading.png."
+    },
+    "empty": {
+      "status": "pass",
+      "evidence": "Fresh page load before any submission shows a neutral 'Submit an article to see a prediction.' message in the result panel, with an info icon, not a blank void. screenshots/*__empty.png."
+    },
+    "error": {
+      "status": "pass",
+      "evidence": "Two distinct error paths verified: (1) client-side validation -- submitting with both title and body empty shows an inline error and sends no request (screenshots/*__validation-error.png); (2) network failure -- /api/predict aborted via Playwright route mocking surfaces a specific recovery message ('Could not reach the backend. Check that the server is running...') rather than the raw browser 'Failed to fetch' string. That raw-string leak was an actual bug found during this evidence capture and fixed in frontend/js/api.js before this screenshot was taken (screenshots/*__network-error.png)."
+    },
+    "partial": {
+      "status": "pass",
+      "evidence": "On the Explainability Lab, /api/explain mocked to return a valid prediction with explanation=null and a populated explanation_error. Result: the prediction (label, confidence, probability bars) remains fully visible and correctly styled, with the explanation failure shown as a separate, clearly isolated error message below it -- the valid partial result is never hidden or invalidated by the failed part. screenshots/*__partial-explanation-failed.png."
+    },
+    "success": {
+      "status": "pass",
+      "evidence": "Real prediction against the live backend for both a factual (Real, high confidence) and a fabricated (Fake, high confidence) sample text, rendered with the solid/outline pill + probability bars + disclaimer. Also verified full success path on Explainability Lab (SHAP bar chart + token highlighting) and on Model Comparison/Evaluation (static JSON data tables render with real values). screenshots/*__success.png."
+    },
+    "permission": {
+      "status": "not-applicable",
+      "reason": "The application has no authentication or access-control boundaries -- it is a single local backend with no user accounts, so there is no permission/access state to design for."
+    }
+  },
+  "renderedEvidence": [
+    { "viewport": "1440x900", "artifact": "screenshots/1440x900__empty.png", "observation": "Landing page is Analyze Article (not a separate marketing page); live backend-status banner, empty result panel with neutral prompt." },
+    { "viewport": "1440x900", "artifact": "screenshots/1440x900__loading.png", "observation": "Spinner + status text in result panel; form stays stable and disabled during the request." },
+    { "viewport": "1440x900", "artifact": "screenshots/1440x900__success.png", "observation": "Fake-article prediction: red 'Fake' pill with alert icon, red Fake probability bar at 100%, green Real bar at 0%, disclaimer and label-mapping note. Rest of the chrome (sidebar, cards, buttons) stays monochrome." },
+    { "viewport": "1440x900", "artifact": "screenshots/1440x900__validation-error.png", "observation": "Empty-input submission shows an inline validation error; no request sent." },
+    { "viewport": "1440x900", "artifact": "screenshots/1440x900__network-error.png", "observation": "Aborted request shows a specific, actionable recovery message instead of a raw browser error string." },
+    { "viewport": "1440x900", "artifact": "screenshots/1440x900__partial-explanation-failed.png", "observation": "Explainability Lab: prediction (Fake, 99.9%) fully rendered and valid; explanation failure shown as an isolated error banner below it." },
+    { "viewport": "390x844", "artifact": "screenshots/390x844__empty.png", "observation": "Mobile landing page, topbar with hamburger menu, no horizontal overflow, stacked single-column layout." },
+    { "viewport": "390x844", "artifact": "screenshots/390x844__loading.png", "observation": "Loading state stable at mobile width, no layout shift." },
+    { "viewport": "390x844", "artifact": "screenshots/390x844__success.png", "observation": "Prediction result readable and correctly styled at mobile width." },
+    { "viewport": "390x844", "artifact": "screenshots/390x844__validation-error.png", "observation": "Validation error visible and readable at mobile width." },
+    { "viewport": "390x844", "artifact": "screenshots/390x844__network-error.png", "observation": "Network-error recovery message visible and readable at mobile width." },
+    { "viewport": "390x844", "artifact": "screenshots/390x844__partial-explanation-failed.png", "observation": "Partial state (valid prediction + isolated explanation failure) renders correctly at mobile width." }
+  ]
+}
